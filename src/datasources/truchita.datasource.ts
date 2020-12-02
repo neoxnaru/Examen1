@@ -4,11 +4,11 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'truchita',
   connector: 'mssql',
-  url: 'mssql://prueba:joncena1234@LEONARDO/Supermercado2',
-  host: 'LEONARDO',
+  url: 'mssql://Leonardo94_SQLLogin_1:l2ol8h1pqa@Supermercado2.mssql.somee.com/Supermercado2',
+  host: 'Supermercado2.mssql.somee.com',
   port: 1433,
-  user: 'prueba',
-  password: 'joncena1234',
+  user: 'Leonardo94_SQLLogin_1',
+  password: 'l2ol8h1pqa',
   database: 'Supermercado2'
 };
 
