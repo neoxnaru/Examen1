@@ -4,17 +4,21 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
 import {Cliente} from '../models';
 import {ClienteRepository} from '../repositories';
@@ -22,8 +26,8 @@ import {ClienteRepository} from '../repositories';
 export class ClienteController {
   constructor(
     @repository(ClienteRepository)
-    public clienteRepository : ClienteRepository,
-  ) {}
+    public clienteRepository: ClienteRepository,
+  ) { }
 
   @post('/clientes', {
     responses: {
@@ -170,4 +174,27 @@ export class ClienteController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.clienteRepository.deleteById(id);
   }
+
+  @get('/clientes/vista1')
+  async vista1(): Promise<any> {
+    let datos: any[] = await this.getVista();
+    return datos;
+  }
+
+  async getVista() {
+    return await this.clienteRepository.dataSource.execute('SELECT *FROM vTransaccionesCliente');
+  }
+
+  @get('/clientes/vista2')
+  async vista2(): Promise<any> {
+    let datos: any[] = await this.getVista();
+    return datos;
+  }
+
+  async getVista2() {
+    return await this.clienteRepository.dataSource.execute('SELECT *FROM VistaClientesPagos');
+  }
+
 }
+
+

@@ -4,17 +4,21 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
 import {Categoria} from '../models';
 import {CategoriaRepository} from '../repositories';
@@ -22,8 +26,8 @@ import {CategoriaRepository} from '../repositories';
 export class CategoriaController {
   constructor(
     @repository(CategoriaRepository)
-    public categoriaRepository : CategoriaRepository,
-  ) {}
+    public categoriaRepository: CategoriaRepository,
+  ) { }
 
   @post('/categorias', {
     responses: {
@@ -170,4 +174,15 @@ export class CategoriaController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.categoriaRepository.deleteById(id);
   }
+
+  @get('/categorias/vista1')
+  async vista1(): Promise<any> {
+    let datos: any[] = await this.getVista();
+    return datos;
+  }
+
+  async getVista() {
+    return await this.categoriaRepository.dataSource.execute('SELECT *FROM CategoriasProductos');
+  }
+
 }

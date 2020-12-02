@@ -4,17 +4,21 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
 import {Producto} from '../models';
 import {ProductoRepository} from '../repositories';
@@ -22,8 +26,8 @@ import {ProductoRepository} from '../repositories';
 export class ProductoController {
   constructor(
     @repository(ProductoRepository)
-    public productoRepository : ProductoRepository,
-  ) {}
+    public productoRepository: ProductoRepository,
+  ) { }
 
   @post('/productos', {
     responses: {
@@ -170,4 +174,26 @@ export class ProductoController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.productoRepository.deleteById(id);
   }
+
+  @get('/productos/vista1')
+  async vista1(): Promise<any> {
+    let datos: any[] = await this.getVista();
+    return datos;
+  }
+
+  async getVista() {
+    return await this.productoRepository.dataSource.execute('SELECT *FROM vPrecio30');
+  }
+
+  @get('/productos/vista2')
+  async vista2(): Promise<any> {
+    let datos2: any[] = await this.getVista();
+    return datos2;
+  }
+
+  async getVista2() {
+    return await this.productoRepository.dataSource.execute('SELECT *FROM Vistaproductostock');
+  }
+
+
 }

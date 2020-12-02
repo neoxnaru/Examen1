@@ -21,6 +21,14 @@ export class Producto extends Entity {
   nombre: string;
 
   @property({
+    type: 'string',
+    required: true,
+    length: 200,
+    mssql: {columnName: 'tipoa', dataType: 'nvarchar', dataLength: 200, dataPrecision: null, dataScale: null, nullable: 'NO'},
+  })
+  tipoa: string;
+
+  @property({
     type: 'number',
     required: true,
     precision: 10,

@@ -4,17 +4,21 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
-  requestBody,
+
+  requestBody
 } from '@loopback/rest';
 import {Proveedor} from '../models';
 import {ProveedorRepository} from '../repositories';
@@ -22,8 +26,8 @@ import {ProveedorRepository} from '../repositories';
 export class ProveedorController {
   constructor(
     @repository(ProveedorRepository)
-    public proveedorRepository : ProveedorRepository,
-  ) {}
+    public proveedorRepository: ProveedorRepository,
+  ) { }
 
   @post('/proveedors', {
     responses: {
@@ -170,4 +174,25 @@ export class ProveedorController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.proveedorRepository.deleteById(id);
   }
+
+  @get('/proveedors/vista1')
+  async vista1(): Promise<any> {
+    let datos: any[] = await this.getVista();
+    return datos;
+  }
+
+  async getVista() {
+    return await this.proveedorRepository.dataSource.execute('SELECT *FROM vTransaccionesCliente');
+  }
+
+  @get('/proveedors/vista2')
+  async vista2(): Promise<any> {
+    let datos2: any[] = await this.getVista();
+    return datos2;
+  }
+
+  async getVista2() {
+    return await this.proveedorRepository.dataSource.execute('SELECT *FROM VistaProveedorPrecio');
+  }
+
 }
