@@ -127,6 +127,16 @@ AS
 GO
 
 
+IF EXISTS (
+SELECT *
+FROM sys.views
+  JOIN sys.schemas
+  ON sys.views.schema_id = sys.schemas.schema_id
+WHERE sys.schemas.name = N'dbo'
+  AND sys.views.name = N'Vistaproductostock'
+)
+DROP VIEW dbo.VistaClientesPagos
+GO
 CREATE VIEW dbo.VistaProductoStock
 AS
   SELECT Pro.nombre, Pro.existencias
